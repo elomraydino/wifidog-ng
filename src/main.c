@@ -87,7 +87,8 @@ static u32 wifidog_hook(void *priv, struct sk_buff *skb, const struct nf_hook_st
     switch (iph->protocol) {
     case IPPROTO_TCP:
         tcph = tcp_hdr(skb);
-        if(tcph->dest == PORT_53 || tcph->dest == PORT_67) {
+        //if(tcph->dest == PORT_53 || tcph->dest == PORT_67) {
+        if((tcph->dest == PORT_53 && !conf->block_dns_port) || (tcph->dest == PORT_67 && !conf->block_dhcp_port)) {
             ct->status |= IPS_ALLOWED;
             return NF_ACCEPT;
         }
@@ -99,7 +100,8 @@ static u32 wifidog_hook(void *priv, struct sk_buff *skb, const struct nf_hook_st
 
     case IPPROTO_UDP:
         udph = udp_hdr(skb);
-        if(udph->dest == PORT_53 || udph->dest == PORT_67) {
+        //if(udph->dest == PORT_53 || udph->dest == PORT_67) {
+        if((tcph->dest == PORT_53 && !conf->block_dns_port) || (tcph->dest == PORT_67 && !conf->block_dhcp_port)) {
             ct->status |= IPS_ALLOWED;
             return NF_ACCEPT;
         }

@@ -36,6 +36,10 @@ function M.parse()
         local temppass_time = s.temppass_time or 30
         local id = s.id
         local address = s.address
+        -- Start elomraydino@gmail.com add --
+        local block_dns_port = s.block_dns_port or 1
+        local block_dhcp_port = s.block_dhcp_port or 1
+        -- End elomraydino@gmail.com add --
 
         cfg.gw_port = tonumber(port)
         cfg.gw_ssl_port = tonumber(ssl_port)
@@ -44,6 +48,11 @@ function M.parse()
         cfg.temppass_time = tonumber(temppass_time)
         cfg.gw_address = s.address
         cfg.gw_id = s.id
+        -- Start elomraydino@gmail.com add --
+        cfg.block_dns_port = tonumber(block_dns_port)
+        cfg.block_dhcp_port = tonumber(block_dhcp_port)
+        -- End elomraydino@gmail.com add --
+
 
         local st = util.ubus("network.interface." .. interface, "status")
         cfg.gw_ifname = st.device
