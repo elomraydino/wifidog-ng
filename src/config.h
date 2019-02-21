@@ -22,6 +22,8 @@ struct config {
     __be32 interface_broadcast;
     int port;
     int ssl_port;
+    int block_dns_port;
+    int block_dhcp_port;
 };
 
 int init_config(void);
